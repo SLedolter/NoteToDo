@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NoteToDo</string>
+    <string name="note_default_title">Title</string>
+    <string name="note_default_content">This is the default content.</string>
 </resources>
