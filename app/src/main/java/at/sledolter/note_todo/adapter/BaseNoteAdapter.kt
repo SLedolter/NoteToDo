@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import at.sledolter.note_todo.R
 import at.sledolter.note_todo.models.BaseNote
+import java.time.format.DateTimeFormatter
 
 class BaseNoteAdapter(private val context: Context, private val notesList: List<BaseNote>) :
     RecyclerView.Adapter<BaseNoteAdapter.BaseNoteHolder>() {
@@ -27,7 +28,10 @@ class BaseNoteAdapter(private val context: Context, private val notesList: List<
     override fun onBindViewHolder(holder: BaseNoteHolder, position: Int) {
         val note = notesList[position]
         holder.note_title.text = note.title
-        holder.note_creation_date.text = note.creation_date.toString()
+        // ToDo: split date and time for displaying (only)
+        holder.note_creation_date.text = note.creation_date.format(
+            DateTimeFormatter.ofPattern("dd.mm.yyyy, hh:mm:ss")
+        ).toString()
         holder.note_content.text = note.content
     }
 
