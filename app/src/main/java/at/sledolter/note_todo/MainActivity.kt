@@ -2,12 +2,16 @@ package at.sledolter.note_todo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import at.sledolter.note_todo.adapter.BaseNoteAdapter
 import at.sledolter.note_todo.models.BaseNote
+import java.text.FieldPosition
 import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
+    lateinit var testNotes: List<BaseNote>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,10 +26,16 @@ class MainActivity : AppCompatActivity() {
         note2.creation_date = LocalDateTime.now()
         note2.content = "Der Inhalt braucht immer noch keinen Sinn!"
 
-        val testNotes = listOf(note1, note2)
+        testNotes = listOf(note1, note2)
 
         val recyclerView = findViewById<RecyclerView>(R.id.main_recyclerview)
-        recyclerView.adapter = BaseNoteAdapter(this, testNotes)
+        recyclerView.adapter = BaseNoteAdapter(this, testNotes) {
+            position -> onNoteItemClick(position)
+        }
         recyclerView.setHasFixedSize(true)
+    }
+
+    private fun onNoteItemClick(position: Int){
+        Toast.makeText(this, testNotes[position].title, Toast.LENGTH_SHORT).show()
     }
 }
