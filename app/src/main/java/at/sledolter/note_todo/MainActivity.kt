@@ -29,13 +29,19 @@ class MainActivity : AppCompatActivity() {
         testNotes = listOf(note1, note2)
 
         val recyclerView = findViewById<RecyclerView>(R.id.main_recyclerview)
-        recyclerView.adapter = BaseNoteAdapter(this, testNotes) {
-            position -> onNoteItemClick(position)
-        }
+        recyclerView.adapter = BaseNoteAdapter(this, testNotes,
+            { position -> onNoteItemClick(position) },
+            { position -> onNoteItemLongClick(position) }
+        )
         recyclerView.setHasFixedSize(true)
+
     }
 
-    private fun onNoteItemClick(position: Int){
-        Toast.makeText(this, testNotes[position].title, Toast.LENGTH_SHORT).show()
+    private fun onNoteItemClick(position: Int) {
+        Toast.makeText(this, "Short: " + testNotes[position].title, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onNoteItemLongClick(position: Int) {
+        Toast.makeText(this, "Long: " + testNotes[position].title, Toast.LENGTH_SHORT).show()
     }
 }
